@@ -236,7 +236,7 @@ fetch('https://api.github.com/repos/lotfihaddad-dot/lotfihaddad-dot.github.io/co
 const USER = "lotfihaddad-dot";
 const REPO = "lotfihaddad-dot.github.io";
 // Utilisation de l'API REST de GitHub pour lister les dossiers
-const API_BASE = `https://github.com{USER}/${REPO}/contents`;
+const API = `https://api.github.com/repos/${USER}/${REPO}/contents`;
 
 async function renderFolderContent(container, path) {
     try {
