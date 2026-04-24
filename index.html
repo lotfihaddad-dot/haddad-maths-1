@@ -279,171 +279,72 @@
 </section>
 
 <script>
-// Test direct de l'API
-fetch('https://api.github.com/repos/lotfihaddad-dot/lotfihaddad-dot.github.io/contents/Actualites')
-    .then(r => r.json())
-    .then(data => {
-        if (Array.isArray(data)) {
-            let html = '<ul>';
-            for (const file of data) {
-                if (file.name.endsWith('.pdf')) {
-                    html += `<li><a href="${file.download_url}" target="_blank">${file.name}</a></li>`;
-                }
-            }
-            html += '</ul>';
-            document.getElementById('test-actu').innerHTML = html;
-        } else {
-            document.getElementById('test-actu').innerHTML = 'Erreur : ' + (data.message || 'Dossier vide');
-        }
-    })
-    .catch(err => {
-        document.getElementById('test-actu').innerHTML = 'Erreur : ' + err.message;
-    });
-</script>
+// 1. Liste de vos dossiers (IDs HTML et chemins sur GitHub)
+const dossiers = [
+    { id: "bac-sciences", chemin: "4eme-Sc-exp" },
+    { id: "bac-math", chemin: "4eme-Math" },
+    { id: "bac-technique", chemin: "4eme-Technique" },
+    { id: "bac-economie", chemin: "4eme-Economie" },
+    { id: "2eme-sciences", chemin: "2eme-sciences" }
+];
 
-<script>
-const USER = "lotfihaddad-dot";
-const REPO = "lotfihaddad-dot.github.io";
-// Utilisation de l'API REST de GitHub pour lister les dossiers
-const API = `https://api.github.com/repos/${USER}/${REPO}/contents`;
-
-async function renderFolderContent(container, path) {
-    try {
-        const res = await fetch(`${API_BASE}/${path}`);
-        
-        if (!res.ok) throw new Error("Erreur réseau ou dossier introuvable");
-        
-        const items = await res.json();
-        
-        if (!Array.isArray(items)) {
-            container.innerHTML = "<em>Aucun document.</em>";
-            return;
-        }
-
-        // Tri des dossiers et des fichiers PDF
-        const folders = items.filter(i => i.type === "dir").sort((a,b) => a.name.localeCompare(b.name));
-        const files = items.filter(i => i.type === "file" && i.name.toLowerCase().endsWith('.pdf')).sort((a,b) => a.name.localeCompare(b.name));
-        
-        let html = "";
-        
-        // Affichage des dossiers
-        folders.forEach(folder => {
-            html += `
-                <div class="folder-item">
-                    <div class="folder-title" onclick="handleFolderClick(this, '${path}/${folder.name}')">
-                        📁 ${folder.name}
-                    </div>
-                    <div class="folder-content">
-                        <div class="file-list">Chargement...</div>
-                    </div>
-                </div>
-            `;
-        });
-        
-        // Affichage des fichiers
-        if (files.length > 0) {
-            html += '<ul class="file-list-ul">';
-            files.forEach(f => {
-                html += `<li>📄 <a href="${f.download_url}" target="_blank">${f.name}</a></li>`;
-            });
-            html += '</ul>';
-        }
-        
-        container.innerHTML = html || "<em>Dossier vide.</em>";
-        
-    } catch (error) {
-        console.error("Erreur GitHub API:", error);
-        container.innerHTML = "<em style='color:red;'>Erreur de chargement.</em>";
+// 2. Gestion des clics (Méthode robuste qui marche toujours)
+document.addEventListener('click', function(e) {
+    // Clic sur une section principale (H2)
+    const h2 = e.target.closest('.section h2');
+    if (h2) {
+        h2.parentElement.classList.toggle('open');
+        return;
     }
-}
 
-// Fonction pour gérer le clic : on ne charge le contenu que si nécessaire (Lazy Loading)
-async function handleFolderClick(element, fullPath) {
-    const contentDiv = element.nextElementSibling;
-    contentDiv.classList.toggle('open'); // Ouvre ou ferme le dossier visuellement
-    
-    const listContainer = contentDiv.querySelector('.file-list');
-    
-    // On ne télécharge les données que la première fois pour économiser l'API
-    if (listContainer && listContainer.innerText === "Chargement...") {
-        await renderFolderContent(listContainer, fullPath);
+    // Clic sur une sous-section (H3)
+    const h3 = e.target.closest('.subsection h3');
+    if (h3) {
+        h3.parentElement.classList.toggle('open');
+        return;
     }
-}
 
-// Initialisation au chargement de la page pour les sections principales
-document.addEventListener("DOMContentLoaded", () => {
-    // Exemple pour lancer le chargement auto de la section Actualités
-    const actuContainer = document.getElementById('test-actu');
-    if (actuContainer) renderFolderContent(actuContainer, 'Actualites');
+    // Clic sur un titre de dossier
+    if (e.target.classList.contains('folder-title')) {
+        const folderContent = e.target.nextElementSibling;
+        if (folderContent) folderContent.classList.toggle('open');
+    }
 });
 
-        if (folders.length === 0 && files.length === 0) {
-            container.innerHTML = "<em>Aucun document.</em>";
-        }
+// 3. Fonction pour charger les PDF
+async function chargerDossier(idContainer, chemin) {
+    const container = document.getElementById(idContainer);
+    if (!container) return;
+
+    try {
+        // Appel correct à l'API GitHub
+        const response = await fetch(`https://github.com{chemin}`);
+        if (!response.ok) throw new Error("Erreur");
         
-    } catch (error) {
-        container.innerHTML = "<em>Dossier non trouvé ou vide.</em>";
+        const files = await response.json();
+        let html = "<ul>";
+        
+        files.forEach(file => {
+            if (file.name.toLowerCase().endsWith('.pdf')) {
+                // URL pour affichage direct sur le site
+                const urlSite = `https://github.io{file.path}`;
+                html += `<li>📄 <a href="${urlSite}" target="_blank">${file.name.replace('.pdf', '')}</a></li>`;
+            }
+        });
+        
+        html += "</ul>";
+        container.innerHTML = html || "<p>Aucun PDF dans ce dossier.</p>";
+    } catch (err) {
+        console.error("Erreur sur " + chemin, err);
+        container.innerHTML = "<p style='color:gray'>Dossier introuvable ou vide.</p>";
     }
 }
 
-function initAccordion() {
-    document.querySelectorAll('.section').forEach(section => {
-        const h2 = section.querySelector('h2');
-        if (h2 && section.id !== 'accueil') {
-            h2.addEventListener('click', () => {
-                section.classList.toggle('open');
-            });
-        }
-    });
-    
-    document.querySelectorAll('.subsection').forEach(sub => {
-        const h3 = sub.querySelector('h3');
-        h3.addEventListener('click', () => {
-            sub.classList.toggle('open');
-        });
-    });
-}
-
-function loadAll() {
-    document.querySelectorAll('.subsection').forEach(sub => {
-        const path = sub.getAttribute('data-path');
-        if (path) {
-            const container = sub.querySelector('.folder-list');
-            if (container) {
-                renderFolderContent(container, path);
-            }
-        }
-    });
-}
-
-window.onload = () => {
-    initAccordion();
-    loadAll();
-};
-<!-
-<!-- SECTION COMMENTAIRES GISCUS -->
-<!-- 
-<div style="margin-top: 40px; padding: 20px; background: white; border-radius: 12px;">
-    <h3 style="color: #1e3c72;">💬 Discussions et retours</h3>
-    <p>Une question, une remarque ? Laissez un commentaire ci-dessous (authentification GitHub requise).</p>
-    
-    <script src="https://giscus.app/client.js"
-        data-repo="lebeauroi/lotfihaddad-dot.github.io"
-        data-repo-id="VOTRE_ID_UNIQUE"
-        data-category="Announcements"
-        data-category-id="VOTRE_CATEGORIE_ID_UNIQUE"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="fr"
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
--->
+// 4. Lancement au chargement de la page
+window.addEventListener('DOMContentLoaded', () => {
+    dossiers.forEach(d => chargerDossier(d.id, d.chemin));
+});
+</script>
 
 </body>
 </html>
