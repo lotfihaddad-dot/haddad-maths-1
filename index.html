@@ -9,7 +9,7 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #d3d3d3; color: #333; line-height: 1.6; }
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-radius: 15px; padding: 40px; margin-bottom: 30px; display: flex; align-items: center; gap: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .profile-img { width: 80px; height: 80px; border-radius: 50%; background-color: white; overflow: hidden; border: 3px solid #ffd966; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; background-color: white; overflow: hidden; border: 3px solid #ffd966; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         .menu { background: white; border-radius: 10px; padding: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; position: sticky; top: 10px; z-index: 100; }
         .menu a { color: #1e3c72; text-decoration: none; font-weight: bold; padding: 10px 18px; border-radius: 20px; font-size: 13px; cursor: pointer; }
@@ -28,7 +28,8 @@
         .subsection.open .subcontent { display: block; }
         .folder-list, .file-list { background: #fafafa; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
         .folder-item { margin: 8px 0; }
-        .folder-title { cursor: pointer; font-weight: bold; color: #1e3c72; padding: 5px; background: #e8f0fe; border-radius: 5px; display: inline-block; margin-bottom: 5px; }
+        .folder-title { cursor: pointer; font-weight: bold; color: #1e3c72; padding: 5px; background: #e8f0fe; border-radius: 5px; display: inline-block; margin-bottom: 5px; transition: all 0.2s ease; }
+        .folder-title:hover { background: #d4e0f0; transform: scale(1.02); }
         .folder-title::before { content: "📁 "; }
         .folder-content { margin-left: 20px; display: none; }
         .folder-content.open { display: block; }
@@ -37,13 +38,27 @@
         .file-list a { color: #2a5298; text-decoration: none; font-weight: 600; }
         .legal-notice { background-color: #f9f3e0; border-left: 5px solid #1e3c72; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
         .livres-list { list-style: none; margin: 15px 0; }
-        .livres-list li { margin: 8px 0; padding-left: 20px; position: relative; }
-        .livres-list li::before { content: "📚"; position: absolute; left: -5px; }
+        .livres-list li { margin: 8px 0; padding-left: 20px; position: relative; transition: all 0.2s ease; }
+        .livres-list li:nth-child(1) { color: #1e3c72; }
+        .livres-list li:nth-child(2) { color: #b76e1e; }
+        .livres-list li:nth-child(3) { color: #c0392b; }
+        .livres-list li:nth-child(4) { color: #27ae60; }
+        .livres-list li:nth-child(5) { color: #8e44ad; }
+        .livres-list li:nth-child(6) { color: #d35400; }
+        .livres-list li:nth-child(7) { color: #16a085; }
+        .livres-list li:nth-child(8) { color: #2c3e50; }
+        .livres-list li:nth-child(9) { color: #7f8c8d; }
+        .livres-list li:nth-child(10) { color: #2980b9; }
+        .livres-list li:nth-child(11) { color: #e67e22; }
+        .livres-list li::before { content: "📚"; position: absolute; left: -5px; color: inherit; }
         .citation { font-style: italic; background: #f9f3e0; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #ffd966; }
         .email-link { color: #2a5298; text-decoration: none; font-weight: bold; }
         .ambulance-alert { background: #c0392b; color: white; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .ambulance-alert .siren { font-size: 30px; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .status-list { list-style: none; margin-top: 10px; }
+        .status-list li { font-weight: bold; padding-left: 25px; position: relative; }
+        .status-list li::before { content: "★"; position: absolute; left: 0; color: #f39c12; }
     </style>
 </head>
 <body>
@@ -75,24 +90,29 @@
         <h2>🏠 Accueil</h2>
         <div class="content">
             <p><strong>Bienvenue sur cet espace pédagogique.</strong> Vous y trouverez l'ensemble de mes ressources mathématiques.</p>
-            <p>Depuis plusieurs années, je travaille jour et nuit pour écrire des livres de Mathématiques pour les classes préparatoires.<br>
+            <p>Depuis plusieurs années, je travaille jour et nuit pour écrire des livres de Mathématiques pour les classes préparatoires, toutes filières, première et deuxième années.<br>
             Aujourd'hui, j'ai <strong>11 livres</strong> qui attendent le feu vert pour la publication :</p>
             <ul class="livres-list">
-                <li><strong>Mathématiques 1 MP</strong> - Cours Complet, Exercices et Annales Corrigées</li>
-                <li><strong>Mathématiques 2 MP</strong> - Cours Complet, Exercices et Annales Corrigées</li>
-                <li><strong>Tout l'analyse en première</strong></li>
-                <li><strong>Tout l'algèbre en première</strong></li>
-                <li><strong>PC & PT - Fondamentaux des Mathématiques (2ème année)</strong></li>
-                <li><strong>PC & PT - Fondamentaux des Mathématiques (1ère année) Tome 1</strong></li>
-                <li><strong>PC & PT - Fondamentaux des Mathématiques (1ère année) Tome 2</strong></li>
-                <li><strong>OBJECTIF CONCOURS MP</strong></li>
-                <li><strong>Annales MP Augmentées</strong></li>
-                <li><strong>32 ANS DE CONCOURS - MATHS 2 MP</strong></li>
-                <li><strong>32 ANS DE CONCOURS - MATHS 1 MP</strong></li>
+                <li><strong>Mathématiques 1 MP</strong> - Cours Complet, Exercices et Annales Corrigées (2ème année Maths-Physique)</li>
+                <li><strong>Mathématiques 2 MP</strong> - Cours Complet, Exercices et Annales Corrigées (2ème année Maths-Physique)</li>
+                <li><strong>Tout l'analyse en première</strong> - Cours Complet, Exercices et Annales Corrigées (1ère année Maths-Physique)</li>
+                <li><strong>Tout l'algèbre en première</strong> - Cours Complet, Exercices et Annales Corrigées (1ère année Maths-Physique)</li>
+                <li><strong>CLASSES PRÉPARATOIRES - Filières PC & PT - Fondamentaux des Mathématiques (deuxième année)</strong></li>
+                <li><strong>CLASSES PRÉPARATOIRES - Filières PC & PT - Fondamentaux des Mathématiques (première année) Tome 1</strong></li>
+                <li><strong>CLASSES PRÉPARATOIRES - Filières PC & PT - Fondamentaux des Mathématiques (première année) Tome 2</strong></li>
+                <li><strong>OBJECTIF CONCOURS MP - MATHÉMATIQUES</strong> - La Méthode par l'Exercice</li>
+                <li><strong>Annales MP Augmentées</strong> - 30 Sujets de Concours avec Analyses Détaillées</li>
+                <li><strong>32 ANS DE CONCOURS NATIONAUX TUNISIENS - MATHÉMATIQUES 2 - FILIÈRE MP</strong></li>
+                <li><strong>32 ANS DE CONCOURS NATIONAUX TUNISIENS - MATHÉMATIQUES 1 - FILIÈRE MP</strong></li>
             </ul>
+            <p><strong>Ensemble, ces livres totalisent près de 6600 pages de Mathématiques.</strong></p>
             <div class="citation">
-                <p>❝ Ce site complète les livres avec des fichiers PDF originaux. ❞</p>
+                <p>❝ Bon, après cette liste des livres, une personne pourrait se demander : <em>« À quoi sert ce site ? N'est-il pas en contradiction avec vos livres ? »</em></p>
+                <p>Je réponds : non, car un livre ne peut pas dépasser 800 pages au maximum. Que faire alors avec des milliers et des milliers de pages de mathématiques ? <strong>Ce site est donc en harmonie avec les livres :</strong> il complète ces livres avec d'autres fichiers PDF originaux. Chaque visiteur a le choix de ce qu'il veut lire. ❞</p>
             </div>
+            <p>Fruit d'une longue expérience d'enseignement, ce site vise à enrichir les étudiants et enseignants de classes préparatoires et premier cycle universitaire, et à les aider à préparer efficacement les concours nationaux d'entrée aux écoles d'ingénieurs, ainsi qu'à différents concours français.</p>
+            <p><em>Je remercie par avance les visiteurs de ce site qui voudront bien me faire part de leurs remarques ou me signaler d'éventuelles coquilles.</em></p>
+            <p><strong>Ceci n'est que le début. Plusieurs bonnes surprises vous attendent !</strong></p>
         </div>
     </section>
 
@@ -114,204 +134,98 @@
         </div>
     </section>
 
-    <!-- PC/PT -->
-    <section class="section" id="pcpt">
-        <h2>📕 PC / PT</h2>
-        <div class="content">
-            <div class="subsection"><h3>Cours</h3><div id="pcpt-cours" class="subcontent" data-path="PC_PT/Cours"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Devoirs</h3><div id="pcpt-devoirs" class="subcontent" data-path="PC_PT/Devoirs"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>TD</h3><div id="pcpt-td" class="subcontent" data-path="PC_PT/TD"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Problèmes</h3><div id="pcpt-prob" class="subcontent" data-path="PC_PT/Problèmes"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Archives</h3><div id="pcpt-archives" class="subcontent" data-path="PC_PT/Archives"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Divers</h3><div id="pcpt-divers" class="subcontent" data-path="PC_PT/Divers"><div class="file-list">Chargement...</div></div></div>
-        </div>
-    </section>
+    <!-- PC/PT, PCSI, CONCOURS, LIENS, ACTUALITÉS, NEWS FLASH -->
+    <section class="section" id="pcpt"><h2>📕 PC / PT</h2><div class="content"><div class="subsection"><h3>Cours</h3><div id="pcpt-cours" class="subcontent" data-path="PC_PT/Cours"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Devoirs</h3><div id="pcpt-devoirs" class="subcontent" data-path="PC_PT/Devoirs"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>TD</h3><div id="pcpt-td" class="subcontent" data-path="PC_PT/TD"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Problèmes</h3><div id="pcpt-prob" class="subcontent" data-path="PC_PT/Problèmes"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Archives</h3><div id="pcpt-archives" class="subcontent" data-path="PC_PT/Archives"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Divers</h3><div id="pcpt-divers" class="subcontent" data-path="PC_PT/Divers"><div class="file-list">Chargement...</div></div></div></div></section>
 
-    <!-- PCSI/PTSI -->
-    <section class="section" id="pcsi">
-        <h2>🧪 PCSI / PTSI</h2>
-        <div class="content">
-            <div class="subsection"><h3>Cours</h3><div id="pcsi-cours" class="subcontent" data-path="PCSI_PTSI/Cours"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Devoirs</h3><div id="pcsi-devoirs" class="subcontent" data-path="PCSI_PTSI/Devoirs"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>TD</h3><div id="pcsi-td" class="subcontent" data-path="PCSI_PTSI/TD"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Problèmes</h3><div id="pcsi-prob" class="subcontent" data-path="PCSI_PTSI/Problèmes"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Archives</h3><div id="pcsi-archives" class="subcontent" data-path="PCSI_PTSI/Archives"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Divers</h3><div id="pcsi-divers" class="subcontent" data-path="PCSI_PTSI/Divers"><div class="file-list">Chargement...</div></div></div>
-        </div>
-    </section>
+    <section class="section" id="pcsi"><h2>🧪 PCSI / PTSI</h2><div class="content"><div class="subsection"><h3>Cours</h3><div id="pcsi-cours" class="subcontent" data-path="PCSI_PTSI/Cours"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Devoirs</h3><div id="pcsi-devoirs" class="subcontent" data-path="PCSI_PTSI/Devoirs"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>TD</h3><div id="pcsi-td" class="subcontent" data-path="PCSI_PTSI/TD"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Problèmes</h3><div id="pcsi-prob" class="subcontent" data-path="PCSI_PTSI/Problèmes"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Archives</h3><div id="pcsi-archives" class="subcontent" data-path="PCSI_PTSI/Archives"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Divers</h3><div id="pcsi-divers" class="subcontent" data-path="PCSI_PTSI/Divers"><div class="file-list">Chargement...</div></div></div></div></section>
 
-    <!-- CONCOURS -->
-    <section class="section" id="concours">
-        <h2>📂 Concours Nationaux tunisiens</h2>
-        <div class="content">
-            <div class="subsection"><h3>Concours Maths 1 MP</h3><div id="cnc-m1-mp" class="subcontent" data-path="Concours/Maths1_MP"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Concours Maths 2 MP</h3><div id="cnc-m2-mp" class="subcontent" data-path="Concours/Maths2_MP"><div class="file-list">Chargement...</div></div></div>
-            <div class="subsection"><h3>Concours PC/PT</h3><div id="cnc-pc-pt" class="subcontent" data-path="Concours/PC_PT"><div class="file-list">Chargement...</div></div></div>
-        </div>
-    </section>
+    <section class="section" id="concours"><h2>📂 Concours Nationaux tunisiens</h2><div class="content"><div class="subsection"><h3>Concours Maths 1 MP</h3><div id="cnc-m1-mp" class="subcontent" data-path="Concours/Maths1_MP"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Concours Maths 2 MP</h3><div id="cnc-m2-mp" class="subcontent" data-path="Concours/Maths2_MP"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Concours PC/PT</h3><div id="cnc-pc-pt" class="subcontent" data-path="Concours/PC_PT"><div class="file-list">Chargement...</div></div></div></div></section>
 
-    <!-- LIENS -->
-    <section class="section" id="liens">
-        <h2>🔗 Liens et Contact</h2>
-        <div class="content">
-            <p>📧 Email : <a href="mailto:lotfi.haddad@ipeiem.utm.tn" class="email-link">lotfi.haddad@ipeiem.utm.tn</a></p>
-            <h3>📚 Sites et ressources utiles</h3>
-            <ul><li>🔗 <a href="https://ipeiem.rnu.tn/" target="_blank">IPEI El Manar</a></li></ul>
-        </div>
-    </section>
+    <div class="legal-notice"><h3>📢 À propos de ces documents</h3><p>Les documents proposés ici le sont à titre gratuit. Il est autorisé :</p><ul><li>📖 de les étudier,</li><li>🖨️ de les imprimer,</li><li>📤 de les diffuser à titre gratuit.</li></ul></div>
 
-    <!-- ACTUALITÉS -->
-    <section class="section" id="actualites">
-        <h2>📰 Actualités</h2>
-        <div class="content">
-            <div id="test-actu" data-path="Actualites"><div class="file-list">Chargement...</div></div>
-        </div>
-    </section>
+    <section class="section" id="liens"><h2>🔗 Liens et Contact</h2><div class="content"><p>📧 Email : <a href="mailto:lotfi.haddad@ipeiem.utm.tn" class="email-link">lotfi.haddad@ipeiem.utm.tn</a></p><h3>📚 Sites et ressources utiles</h3><ul><li>🔗 <a href="https://ipeiem.rnu.tn/" target="_blank">IPEI El Manar</a></li><li>🔗 <a href="https://prepas.org/index.php?module=Sujets" target="_blank">Prepas.org - Sujets de concours</a></li><li>🔗 <a href="https://www.mp2-chato.fr/" target="_blank">MP² Chato</a></li><li>🔗 <a href="https://alkendy.ma/index.htm" target="_blank">Alkendy - Mathématiques</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mpsi3-fermat/" target="_blank">Cahier de prépa - MPSI Fermat</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mp-ism/" target="_blank">Cahier de prépa - MP ISM</a></li><li>🔗 <a href="http://pcsi.lazos.free.fr/" target="_blank">PCSI - Lazos</a></li><li>🔗 <a href="https://ghaberer.bitbucket.io/mathematiques/" target="_blank">GHaberer - Mathématiques</a></li><li>🔗 <a href="https://lionelchaussade.wixsite.com/website" target="_blank">Lionel Chaussade</a></li></ul><p>💡 Pour toute question ou remarque, n'hésitez pas à me contacter.</p></div></section>
 
-    <!-- NEWS FLASH -->
-    <section class="section" id="news">
-        <div class="ambulance-alert"><span class="siren">🚨</span><h2>DERNIÈRES NEWS</h2><span class="siren">🚨</span></div>
-        <div class="content">
-            <div id="news-content" data-path="News"><div class="file-list">Chargement...</div></div>
-        </div>
-    </section>
+    <section class="section" id="actualites"><h2>📰 Actualités</h2><div class="content"><div id="test-actu" data-path="Actualites"><div class="file-list">Chargement...</div></div></div></section>
+
+    <section class="section" id="news"><div class="ambulance-alert"><span class="siren">🚨</span><h2>DERNIÈRES NEWS</h2><span class="siren">🚨</span></div><div class="content"><div id="news-content" data-path="News"><div class="file-list">Chargement...</div></div></div></section>
 
 </div>
 
 <script>
-// ===================== CONFIGURATION UNIQUE =====================
 const USER = "lotfihaddad-dot";
 const REPO = "lotfihaddad-dot.github.io";
 const BRANCH = "main";
 
-// ===================== CHARGER DOSSIER (SOUS-DOSSIERS + PDF) =====================
 async function chargerDossier(containerId, path) {
     const container = document.getElementById(containerId);
-    if (!container) return;
-    if (container.hasAttribute("data-loaded")) return;
-
+    if (!container || container.hasAttribute("data-loaded")) return;
     container.innerHTML = "<div class='file-list'>📂 Chargement...</div>";
     container.setAttribute("data-loaded", "true");
-
     try {
         const url = `https://api.github.com/repos/${USER}/${REPO}/contents/${encodeURIComponent(path)}?ref=${BRANCH}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error();
-
         const items = await res.json();
         if (!Array.isArray(items) || items.length === 0) {
             container.innerHTML = "<div class='file-list'>📭 Aucun fichier</div>";
             return;
         }
-
         const folders = items.filter(i => i.type === "dir");
         const pdfs = items.filter(i => i.type === "file" && i.name.toLowerCase().endsWith(".pdf"));
-
         let html = "";
-
-        // Affichage des sous-dossiers (ex: Série 1, Série 2, DS1, ...)
         for (const f of folders) {
             const subId = containerId + "_" + f.name.replace(/[^a-z0-9]/gi, "_");
-            html += `
-                <div class="folder-item">
-                    <div class="folder-title" onclick="event.stopPropagation(); toggleFolder(this)">📁 ${f.name}</div>
-                    <div id="${subId}" class="folder-content" data-path="${path}/${f.name}"></div>
-                </div>
-            `;
-            // Charger recursivement le sous-dossier (mais après l'insertion DOM)
+            html += `<div class="folder-item"><div class="folder-title" onclick="event.stopPropagation(); toggleFolder(this)">📁 ${f.name}</div><div id="${subId}" class="folder-content" data-path="${path}/${f.name}"></div></div>`;
             setTimeout(() => chargerDossier(subId, `${path}/${f.name}`), 50);
         }
-
-        // Affichage des fichiers PDF
         if (pdfs.length) {
             html += `<div class="file-list"><ul>`;
-            for (const p of pdfs) {
-                const nom = p.name.replace(/\.pdf$/i, "");
-                html += `<li>📄 <a href="${p.download_url}" target="_blank" style="color:#2a5298; text-decoration:none;">${nom}</a></li>`;
-            }
+            for (const p of pdfs) html += `<li>📄 <a href="${p.download_url}" target="_blank" style="color:#2a5298; text-decoration:none;">${p.name.replace(/\.pdf$/i, "")}</a></li>`;
             html += `</ul></div>`;
         }
-
-        if (folders.length === 0 && pdfs.length === 0)
-            html = "<div class='file-list'>📭 Aucun fichier</div>";
-
+        if (folders.length === 0 && pdfs.length === 0) html = "<div class='file-list'>📭 Aucun fichier</div>";
         container.innerHTML = html;
-
-    } catch (err) {
-        container.innerHTML = "<div class='file-list'>❌ Erreur chargement</div>";
-    }
+    } catch { container.innerHTML = "<div class='file-list'>❌ Erreur chargement</div>"; }
 }
 
-// ===================== OUVRIR / FERMER UN DOSSIER =====================
 function toggleFolder(element) {
     const content = element.nextElementSibling;
     if (content) {
-        content.style.display = content.style.display === "none" ? "block" : "none";
+        const isOpen = content.style.display === "block";
+        content.style.display = isOpen ? "none" : "block";
         const path = content.getAttribute("data-path");
-        if (path && !content.hasAttribute("data-loaded")) {
-            chargerDossier(content.id, path);
-        }
+        if (path && !content.hasAttribute("data-loaded")) chargerDossier(content.id, path);
     }
 }
 
-// ===================== INITIALISATION ACCORDÉON =====================
-function initAccordion() {
-    // Sections principales (h2)
+function init() {
     document.querySelectorAll(".section").forEach(section => {
         const h2 = section.querySelector("h2");
-        if (h2 && section.id !== "accueil") {
-            h2.addEventListener("click", (e) => {
-                e.stopPropagation();
-                section.classList.toggle("open");
-            });
-        }
+        if (h2 && section.id !== "accueil") h2.addEventListener("click", (e) => { e.stopPropagation(); section.classList.toggle("open"); });
     });
-
-    // Sous-sections (h3)
     document.querySelectorAll(".subsection").forEach(sub => {
         const h3 = sub.querySelector("h3");
-        if (h3) {
-            h3.addEventListener("click", (e) => {
-                e.stopPropagation();
-                sub.classList.toggle("open");
-            });
-        }
+        if (h3) h3.addEventListener("click", (e) => { e.stopPropagation(); sub.classList.toggle("open"); });
     });
-
-    // Dossiers de premier niveau (Cours, TD, Devoirs, ...)
     document.querySelectorAll(".folder-title").forEach(title => {
-        if (title.hasClickListener) return;
-        title.hasClickListener = true;
+        if (title.hasListener) return;
+        title.hasListener = true;
         title.addEventListener("click", (e) => {
             e.stopPropagation();
-            const folderContent = title.nextElementSibling;
-            if (folderContent && folderContent.classList?.contains("folder-content")) {
-                folderContent.style.display = folderContent.style.display === "none" ? "block" : "none";
-                const path = folderContent.getAttribute("data-path");
-                if (path && !folderContent.hasAttribute("data-loaded")) {
-                    chargerDossier(folderContent.id, path);
-                }
+            const fc = title.nextElementSibling;
+            if (fc && fc.classList?.contains("folder-content")) {
+                fc.style.display = fc.style.display === "block" ? "none" : "block";
+                const path = fc.getAttribute("data-path");
+                if (path && !fc.hasAttribute("data-loaded")) chargerDossier(fc.id, path);
             }
         });
     });
-
-    // Éléments simples avec data-path (PC/PT, PCSI, Concours, News, Actualités)
     document.querySelectorAll("[data-path]").forEach(el => {
         if (el.classList?.contains("folder-content")) return;
-        if (el.hasAttribute("data-initialized")) return;
-        el.setAttribute("data-initialized", "true");
-        const path = el.getAttribute("data-path");
-        if (path && !el.hasAttribute("data-loaded")) {
-            chargerDossier(el.id, path);
-        }
+        if (el.id && !el.hasAttribute("data-loaded")) chargerDossier(el.id, el.getAttribute("data-path"));
     });
 }
-
-// ===================== LANCEMENT =====================
-window.onload = () => {
-    initAccordion();
-};
+window.onload = init;
 </script>
-
 </body>
 </html>
