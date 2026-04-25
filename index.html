@@ -552,7 +552,7 @@ async function chargerFichiers(idElement, chemin) {
     container.innerHTML = "<div class='file-list'>⌛ Chargement des documents...</div>";
 
     try {
-        const response = await fetch(`https://github.com{chemin}`);
+      const response = await fetch(`https://github.com{encodeURIComponent(chemin)}`);
         
         if (response.status === 403) {
             container.innerHTML = "<div class='file-list' style='color:orange'>⚠️ Limite GitHub atteinte. Attendez 1h ou utilisez votre 4G.</div>";
