@@ -279,7 +279,7 @@
 </section>
 
 <script>
-// 1. Liste de vos dossiers (IDs HTML et chemins sur GitHub)
+// 1. Liste de vos dossiers (IDs HTML et chemins GitHub)
 const dossiers = [
     { id: "bac-sciences", chemin: "4eme-Sc-exp" },
     { id: "bac-math", chemin: "4eme-Math" },
@@ -288,62 +288,53 @@ const dossiers = [
     { id: "2eme-sciences", chemin: "2eme-sciences" }
 ];
 
-// 2. Gestion des clics (Méthode robuste qui marche toujours)
+// 2. Gestion intelligente des clics
 document.addEventListener('click', function(e) {
-    // Clic sur une section principale (H2)
     const h2 = e.target.closest('.section h2');
     if (h2) {
-        h2.parentElement.classList.toggle('open');
-        return;
-    }
-
-    // Clic sur une sous-section (H3)
-    const h3 = e.target.closest('.subsection h3');
-    if (h3) {
-        h3.parentElement.classList.toggle('open');
-        return;
-    }
-
-    // Clic sur un titre de dossier
-    if (e.target.classList.contains('folder-title')) {
-        const folderContent = e.target.nextElementSibling;
-        if (folderContent) folderContent.classList.toggle('open');
+        const section = h2.parentElement;
+        const content = section.querySelector('.content');
+        
+        // On ne charge que si la section n'a jamais été ouverte
+        if (!section.classList.contains('open') && content && !content.getAttribute('data-loaded')) {
+            // On trouve le chemin correspondant à l'ID de la section
+            const dossierInfo = dossiers.find(d => d.id === content.id);
+            if (dossierInfo) {
+                chargerDossier(dossierInfo.id, dossierInfo.chemin);
+            }
+        }
+        section.classList.toggle('open');
     }
 });
 
-// 3. Fonction pour charger les PDF
+// 3. Fonction de chargement à la demande
 async function chargerDossier(idContainer, chemin) {
     const container = document.getElementById(idContainer);
-    if (!container) return;
+    container.innerHTML = "<li>⌛ Chargement des documents...</li>";
 
     try {
-        // Appel correct à l'API GitHub
         const response = await fetch(`https://github.com{chemin}`);
-        if (!response.ok) throw new Error("Erreur");
+        if (!response.ok) throw new Error();
         
         const files = await response.json();
         let html = "<ul>";
+        let count = 0;
         
         files.forEach(file => {
             if (file.name.toLowerCase().endsWith('.pdf')) {
-                // URL pour affichage direct sur le site
                 const urlSite = `https://github.io{file.path}`;
                 html += `<li>📄 <a href="${urlSite}" target="_blank">${file.name.replace('.pdf', '')}</a></li>`;
+                count++;
             }
         });
         
-        html += "</ul>";
-        container.innerHTML = html || "<p>Aucun PDF dans ce dossier.</p>";
+        container.innerHTML = count > 0 ? html + "</ul>" : "<li>Aucun PDF trouvé.</li>";
+        container.setAttribute('data-loaded', 'true'); // Marquer comme chargé
+
     } catch (err) {
-        console.error("Erreur sur " + chemin, err);
-        container.innerHTML = "<p style='color:gray'>Dossier introuvable ou vide.</p>";
+        container.innerHTML = "<li style='color:red'>Limite GitHub atteinte. Réessayez plus tard.</li>";
     }
 }
-
-// 4. Lancement au chargement de la page
-window.addEventListener('DOMContentLoaded', () => {
-    dossiers.forEach(d => chargerDossier(d.id, d.chemin));
-});
 </script>
 
 </body>
