@@ -525,52 +525,60 @@
 
 
 <script>
-// 1. Gestion universelle des clics (Sections, Sous-sections, Dossiers)
+// 1. GESTION DES CLICS (Accordéon + Chargement)
 document.addEventListener('click', function(e) {
-    // Détecte le clic sur n'importe quel titre de menu
-    const target = e.target.closest('h2, h3, .folder-title');
-    if (!target) return;
+    // On cherche si on a cliqué sur un titre (h2, h3 ou la barre ambulance)
+    const header = e.target.closest('h2, h3, .ambulance-alert');
+    if (!header) return;
 
-    const parent = target.parentElement;
-    const content = parent.querySelector('.content, .subcontent, .folder-content');
-    
+    const section = header.closest('.section, .subsection');
+    const content = section.querySelector('.content, .subcontent');
+
     if (content) {
-        // Si le contenu n'a jamais été chargé et possède un chemin GitHub
-        const chemin = content.getAttribute('data-path');
-        if (!content.getAttribute('data-loaded') && chemin) {
-            chargerDossier(content.id, chemin);
+        const path = content.getAttribute('data-path');
+        // On charge seulement si c'est la première fois qu'on ouvre
+        if (!section.classList.contains('open') && path && !content.getAttribute('data-loaded')) {
+            chargerFichiers(content.id, path);
         }
-        parent.classList.toggle('open');
+        section.classList.toggle('open');
     }
 });
 
-// 2. Fonction de chargement à la demande
-async function chargerDossier(idContainer, chemin) {
-    const container = document.getElementById(idContainer);
+// 2. FONCTION DE CHARGEMENT (Appelée uniquement au clic)
+async function chargerFichiers(idElement, chemin) {
+    const container = document.getElementById(idElement);
     if (!container) return;
 
-    container.innerHTML = "<li>⌛ Chargement...</li>";
+    container.innerHTML = "<div class='file-list'>⌛ Chargement des documents...</div>";
 
     try {
         const response = await fetch(`https://github.com{chemin}`);
+        
+        if (response.status === 403) {
+            container.innerHTML = "<div class='file-list' style='color:orange'>⚠️ Limite GitHub atteinte. Attendez 1h ou utilisez votre 4G.</div>";
+            return;
+        }
+
         if (!response.ok) throw new Error();
-        
-        const files = await response.json();
+
+        const data = await response.json();
         let html = "<ul>";
-        let count = 0;
-        
-        files.forEach(file => {
+        let hasFiles = false;
+
+        data.forEach(file => {
             if (file.name.toLowerCase().endsWith('.pdf')) {
-                const urlSite = `https://github.io{file.path}`;
-                html += `<li>📄 <a href="${urlSite}" target="_blank">${file.name.replace('.pdf', '')}</a></li>`;
-                count++;
+                const urlPages = `https://github.io{file.path}`;
+                html += `<li>📄 <a href="${urlPages}" target="_blank">${file.name.replace('.pdf', '')}</a></li>`;
+                hasFiles = true;
             }
         });
-        
-        container.innerHTML = count > 0 ? html + "</ul>" : "<li>Aucun document trouvé.</li>";
-        container.setAttribute('data-loaded', 'true');
-    } catch (err) {
-        container.innerHTML = "<li style='color:orange'>Limite GitHub atteinte. Réessayez plus tard.</li>";
+
+        html += "</ul>";
+        container.innerHTML = hasFiles ? html : "<div class='file-list'>Aucun document trouvé.</div>";
+        container.setAttribute('data-loaded', 'true'); // Empêche de recharger inutilement
+
+    } catch (error) {
+        container.innerHTML = "<div class='file-list' style='color:red'>❌ Erreur de connexion au dépôt.</div>";
     }
 }
 </script>
