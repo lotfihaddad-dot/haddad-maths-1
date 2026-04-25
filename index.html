@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #d3d3d3; color: #333; line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .container { width: 100%; margin: 0; padding: 20px; }
         .header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-radius: 15px; padding: 40px; margin-bottom: 30px; display: flex; align-items: center; gap: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .profile-img { width: 100px; height: 100px; border-radius: 50%; background-color: white; overflow: hidden; border: 3px solid #ffd966; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -56,9 +56,6 @@
         .ambulance-alert { background: #c0392b; color: white; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .ambulance-alert .siren { font-size: 30px; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .status-list { list-style: none; margin-top: 10px; }
-        .status-list li { font-weight: bold; padding-left: 25px; position: relative; }
-        .status-list li::before { content: "★"; position: absolute; left: 0; color: #f39c12; }
     </style>
 </head>
 <body>
@@ -77,15 +74,13 @@
         <a onclick="document.getElementById('accueil').scrollIntoView({behavior:'smooth'}); return false;">Accueil</a>
         <a onclick="document.getElementById('mp').scrollIntoView({behavior:'smooth'}); return false;">MP</a>
         <a onclick="document.getElementById('mpsi').scrollIntoView({behavior:'smooth'}); return false;">MPSI</a>
-        <a onclick="document.getElementById('pcpt').scrollIntoView({behavior:'smooth'}); return false;">PC / PT</a>
-        <a onclick="document.getElementById('pcsi').scrollIntoView({behavior:'smooth'}); return false;">PCSI / PTSI</a>
         <a onclick="document.getElementById('concours').scrollIntoView({behavior:'smooth'}); return false;">Concours Nationaux tunisiens</a>
         <a onclick="document.getElementById('liens').scrollIntoView({behavior:'smooth'}); return false;">Liens & Contact</a>
         <a onclick="document.getElementById('actualites').scrollIntoView({behavior:'smooth'}); return false;">📰 Actualités</a>
         <a onclick="document.getElementById('news').scrollIntoView({behavior:'smooth'}); return false;">🚨 News Flash</a>
     </nav>
 
-    <!-- ACCUEIL -->
+    <!-- ACCUEIL (intact) -->
     <section class="section open" id="accueil">
         <h2>🏠 Accueil</h2>
         <div class="content">
@@ -116,44 +111,66 @@
         </div>
     </section>
 
-    <!-- MP -->
+    <!-- SECTION MP (corrigée avec les vrais chemins GitHub) -->
     <section class="section" id="mp">
         <h2>📘 MP (Deuxième année Mathématiques et Physique)</h2>
         <div class="content">
-            <div class="subsection"><h3>📐 Maths 1</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Maths 1</div><div id="mp-m1-cours" class="folder-content" data-path="MP/Maths 1/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Maths 1</div><div id="mp-m1-devoirs" class="folder-content" data-path="MP/Maths 1/Devoirs"></div></div><div class="folder-item"><div class="folder-title">TD - Maths 1</div><div id="mp-m1-td" class="folder-content" data-path="MP/Maths 1/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Maths 1</div><div id="mp-m1-prob" class="folder-content" data-path="MP/Maths 1/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Maths 1</div><div id="mp-m1-archives" class="folder-content" data-path="MP/Maths 1/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Maths 1</div><div id="mp-m1-divers" class="folder-content" data-path="MP/Maths 1/Divers"></div></div></div></div>
-            <div class="subsection"><h3>📐 Maths 2</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Maths 2</div><div id="mp-m2-cours" class="folder-content" data-path="MP/Maths 2/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Maths 2</div><div id="mp-m2-devoirs" class="folder-content" data-path="MP/Maths 2/Devoirs"></div></div><div class="folder-item"><div class="folder-title">TD - Maths 2</div><div id="mp-m2-td" class="folder-content" data-path="MP/Maths 2/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Maths 2</div><div id="mp-m2-prob" class="folder-content" data-path="MP/Maths 2/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Maths 2</div><div id="mp-m2-archives" class="folder-content" data-path="MP/Maths 2/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Maths 2</div><div id="mp-m2-divers" class="folder-content" data-path="MP/Maths 2/Divers"></div></div></div></div>
+            <div class="subsection"><h3>📐 Maths 1</h3><div class="subcontent"><div id="mp-m1-cours" data-path="MP/Maths 1/Cours" class="folder-content"></div><div id="mp-m1-devoirs" data-path="MP/Maths 1/Devoirs" class="folder-content"></div><div id="mp-m1-td" data-path="MP/Maths 1/TD" class="folder-content"></div><div id="mp-m1-prob" data-path="MP/Maths 1/Problèmes" class="folder-content"></div><div id="mp-m1-archives" data-path="MP/Maths 1/Archives" class="folder-content"></div><div id="mp-m1-divers" data-path="MP/Maths 1/Divers" class="folder-content"></div></div></div>
+            <div class="subsection"><h3>📐 Maths 2</h3><div class="subcontent"><div id="mp-m2-cours" data-path="MP/Maths 2/Cours" class="folder-content"></div><div id="mp-m2-devoirs" data-path="MP/Maths 2/Devoirs" class="folder-content"></div><div id="mp-m2-td" data-path="MP/Maths 2/TD" class="folder-content"></div><div id="mp-m2-prob" data-path="MP/Maths 2/Problèmes" class="folder-content"></div><div id="mp-m2-archives" data-path="MP/Maths 2/Archives" class="folder-content"></div><div id="mp-m2-divers" data-path="MP/Maths 2/Divers" class="folder-content"></div></div></div>
         </div>
     </section>
 
-    <!-- MPSI -->
+    <!-- SECTION MPSI (corrigée avec les vrais chemins GitHub) -->
     <section class="section" id="mpsi">
         <h2>📗 MPSI (Première année Mathématiques et Physique)</h2>
         <div class="content">
-            <div class="subsection"><h3>📈 Analyse</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Analyse</div><div id="mpsi-ana-cours" class="folder-content" data-path="MPSI/Analyse/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Analyse</div><div id="mpsi-ana-devoirs" class="folder-content" data-path="MPSI/Analyse/Devoirs"></div></div><div class="folder-item"><div class="folder-title">TD - Analyse</div><div id="mpsi-ana-td" class="folder-content" data-path="MPSI/Analyse/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Analyse</div><div id="mpsi-ana-prob" class="folder-content" data-path="MPSI/Analyse/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Analyse</div><div id="mpsi-ana-archives" class="folder-content" data-path="MPSI/Analyse/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Analyse</div><div id="mpsi-ana-divers" class="folder-content" data-path="MPSI/Analyse/Divers"></div></div></div></div>
-            <div class="subsection"><h3>🧮 Algèbre</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Algèbre</div><div id="mpsi-alg-cours" class="folder-content" data-path="MPSI/Algèbre/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Algèbre</div><div id="mpsi-alg-devoirs" class="folder-content" data-path="MPSI/Algèbre/Devoirs"></div></div><div class="folder-item"><div class="folder-title">TD - Algèbre</div><div id="mpsi-alg-td" class="folder-content" data-path="MPSI/Algèbre/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Algèbre</div><div id="mpsi-alg-prob" class="folder-content" data-path="MPSI/Algèbre/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Algèbre</div><div id="mpsi-alg-archives" class="folder-content" data-path="MPSI/Algèbre/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Algèbre</div><div id="mpsi-alg-divers" class="folder-content" data-path="MPSI/Algèbre/Divers"></div></div></div></div>
+            <div class="subsection"><h3>📈 Analyse</h3><div class="subcontent"><div id="mpsi-ana-cours" data-path="MPSI/Analyse/Cours" class="folder-content"></div><div id="mpsi-ana-devoirs" data-path="MPSI/Analyse/Devoirs" class="folder-content"></div><div id="mpsi-ana-td" data-path="MPSI/Analyse/TD" class="folder-content"></div><div id="mpsi-ana-prob" data-path="MPSI/Analyse/Problèmes" class="folder-content"></div><div id="mpsi-ana-archives" data-path="MPSI/Analyse/Archives" class="folder-content"></div><div id="mpsi-ana-divers" data-path="MPSI/Analyse/Divers" class="folder-content"></div></div></div>
+            <div class="subsection"><h3>🧮 Algèbre</h3><div class="subcontent"><div id="mpsi-alg-cours" data-path="MPSI/Algèbre/Cours" class="folder-content"></div><div id="mpsi-alg-devoirs" data-path="MPSI/Algèbre/Devoirs" class="folder-content"></div><div id="mpsi-alg-td" data-path="MPSI/Algèbre/TD" class="folder-content"></div><div id="mpsi-alg-prob" data-path="MPSI/Algèbre/Problèmes" class="folder-content"></div><div id="mpsi-alg-archives" data-path="MPSI/Algèbre/Archives" class="folder-content"></div><div id="mpsi-alg-divers" data-path="MPSI/Algèbre/Divers" class="folder-content"></div></div></div>
         </div>
     </section>
 
-    <!-- PC/PT, PCSI, CONCOURS, LIENS, ACTUALITÉS, NEWS FLASH -->
-    <section class="section" id="pcpt"><h2>📕 PC / PT</h2><div class="content"><div class="subsection"><h3>Cours</h3><div id="pcpt-cours" class="subcontent" data-path="PC_PT/Cours"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Devoirs</h3><div id="pcpt-devoirs" class="subcontent" data-path="PC_PT/Devoirs"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>TD</h3><div id="pcpt-td" class="subcontent" data-path="PC_PT/TD"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Problèmes</h3><div id="pcpt-prob" class="subcontent" data-path="PC_PT/Problèmes"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Archives</h3><div id="pcpt-archives" class="subcontent" data-path="PC_PT/Archives"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Divers</h3><div id="pcpt-divers" class="subcontent" data-path="PC_PT/Divers"><div class="file-list">Chargement...</div></div></div></div></section>
+    <!-- SECTION CONCOURS -->
+    <section class="section" id="concours">
+        <h2>📂 Concours Nationaux tunisiens</h2>
+        <div class="content">
+            <div class="subsection"><h3>Concours Maths 1 MP</h3><div id="cnc-m1-mp" data-path="Concours_nationaux_tunisiens/Maths_1_MP" class="subcontent"><div class="file-list">Chargement...</div></div></div>
+            <div class="subsection"><h3>Concours Maths 2 MP</h3><div id="cnc-m2-mp" data-path="Concours_nationaux_tunisiens/Maths_2_MP" class="subcontent"><div class="file-list">Chargement...</div></div></div>
+        </div>
+    </section>
 
-    <section class="section" id="pcsi"><h2>🧪 PCSI / PTSI</h2><div class="content"><div class="subsection"><h3>Cours</h3><div id="pcsi-cours" class="subcontent" data-path="PCSI_PTSI/Cours"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Devoirs</h3><div id="pcsi-devoirs" class="subcontent" data-path="PCSI_PTSI/Devoirs"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>TD</h3><div id="pcsi-td" class="subcontent" data-path="PCSI_PTSI/TD"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Problèmes</h3><div id="pcsi-prob" class="subcontent" data-path="PCSI_PTSI/Problèmes"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Archives</h3><div id="pcsi-archives" class="subcontent" data-path="PCSI_PTSI/Archives"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Divers</h3><div id="pcsi-divers" class="subcontent" data-path="PCSI_PTSI/Divers"><div class="file-list">Chargement...</div></div></div></div></section>
+    <!-- SECTION LIENS ET CONTACT -->
+    <section class="section" id="liens">
+        <h2>🔗 Liens et Contact</h2>
+        <div class="content">
+            <div class="legal-notice"><h3>📢 À propos de ces documents</h3><p>Les documents proposés ici le sont à titre gratuit. Il est autorisé :</p><ul><li>📖 de les étudier,</li><li>🖨️ de les imprimer,</li><li>📤 de les diffuser à titre gratuit.</li></ul></div>
+            <p>📧 Email : <a href="mailto:lotfi.haddad@ipeiem.utm.tn" class="email-link">lotfi.haddad@ipeiem.utm.tn</a></p>
+            <h3>📚 Sites et ressources utiles</h3>
+            <ul><li>🔗 <a href="https://ipeiem.rnu.tn/" target="_blank">IPEI El Manar</a></li><li>🔗 <a href="https://prepas.org/index.php?module=Sujets" target="_blank">Prepas.org</a></li><li>🔗 <a href="https://www.mp2-chato.fr/" target="_blank">MP² Chato</a></li><li>🔗 <a href="https://alkendy.ma/index.htm" target="_blank">Alkendy</a></li></ul>
+            <p>💡 Pour toute question ou remarque, n'hésitez pas à me contacter.</p>
+        </div>
+    </section>
 
-    <section class="section" id="concours"><h2>📂 Concours Nationaux tunisiens</h2><div class="content"><div class="subsection"><h3>Concours Maths 1 MP</h3><div id="cnc-m1-mp" class="subcontent" data-path="Concours/Maths1_MP"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Concours Maths 2 MP</h3><div id="cnc-m2-mp" class="subcontent" data-path="Concours/Maths2_MP"><div class="file-list">Chargement...</div></div></div><div class="subsection"><h3>Concours PC/PT</h3><div id="cnc-pc-pt" class="subcontent" data-path="Concours/PC_PT"><div class="file-list">Chargement...</div></div></div></div></section>
+    <!-- ACTUALITÉS -->
+    <section class="section" id="actualites">
+        <h2>📰 Actualités</h2>
+        <div class="content">
+            <div id="test-actu" data-path="Actualites" class="subcontent"><div class="file-list">Chargement...</div></div>
+        </div>
+    </section>
 
-    <div class="legal-notice"><h3>📢 À propos de ces documents</h3><p>Les documents proposés ici le sont à titre gratuit. Il est autorisé :</p><ul><li>📖 de les étudier,</li><li>🖨️ de les imprimer,</li><li>📤 de les diffuser à titre gratuit.</li></ul></div>
-
-    <section class="section" id="liens"><h2>🔗 Liens et Contact</h2><div class="content"><p>📧 Email : <a href="mailto:lotfi.haddad@ipeiem.utm.tn" class="email-link">lotfi.haddad@ipeiem.utm.tn</a></p><h3>📚 Sites et ressources utiles</h3><ul><li>🔗 <a href="https://ipeiem.rnu.tn/" target="_blank">IPEI El Manar</a></li><li>🔗 <a href="https://prepas.org/index.php?module=Sujets" target="_blank">Prepas.org - Sujets de concours</a></li><li>🔗 <a href="https://www.mp2-chato.fr/" target="_blank">MP² Chato</a></li><li>🔗 <a href="https://alkendy.ma/index.htm" target="_blank">Alkendy - Mathématiques</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mpsi3-fermat/" target="_blank">Cahier de prépa - MPSI Fermat</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mp-ism/" target="_blank">Cahier de prépa - MP ISM</a></li><li>🔗 <a href="http://pcsi.lazos.free.fr/" target="_blank">PCSI - Lazos</a></li><li>🔗 <a href="https://ghaberer.bitbucket.io/mathematiques/" target="_blank">GHaberer - Mathématiques</a></li><li>🔗 <a href="https://lionelchaussade.wixsite.com/website" target="_blank">Lionel Chaussade</a></li></ul><p>💡 Pour toute question ou remarque, n'hésitez pas à me contacter.</p></div></section>
-
-    <section class="section" id="actualites"><h2>📰 Actualités</h2><div class="content"><div id="test-actu" data-path="Actualites"><div class="file-list">Chargement...</div></div></div></section>
-
-    <section class="section" id="news"><div class="ambulance-alert"><span class="siren">🚨</span><h2>DERNIÈRES NEWS</h2><span class="siren">🚨</span></div><div class="content"><div id="news-content" data-path="News"><div class="file-list">Chargement...</div></div></div></section>
+    <!-- NEWS FLASH (conservée) -->
+    <section class="section" id="news">
+        <div class="ambulance-alert"><span class="siren">🚨</span><h2>DERNIÈRES NEWS</h2><span class="siren">🚨</span></div>
+        <div class="content">
+            <div id="news-content" data-path="News" class="subcontent"><div class="file-list">Chargement...</div></div>
+        </div>
+    </section>
 
 </div>
 
 <script>
-const USER = "lotfihaddad-dot";
-const REPO = "lotfihaddad-dot.github.io";
+const USER = "lebeauroi";
+const REPO = "haddad-maths";
 const BRANCH = "main";
 
 async function chargerDossier(containerId, path) {
@@ -207,25 +224,12 @@ function init() {
         const h3 = sub.querySelector("h3");
         if (h3) h3.addEventListener("click", (e) => { e.stopPropagation(); sub.classList.toggle("open"); });
     });
-    document.querySelectorAll(".folder-title").forEach(title => {
-        if (title.hasListener) return;
-        title.hasListener = true;
-        title.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const fc = title.nextElementSibling;
-            if (fc && fc.classList?.contains("folder-content")) {
-                fc.style.display = fc.style.display === "block" ? "none" : "block";
-                const path = fc.getAttribute("data-path");
-                if (path && !fc.hasAttribute("data-loaded")) chargerDossier(fc.id, path);
-            }
-        });
-    });
     document.querySelectorAll("[data-path]").forEach(el => {
-        if (el.classList?.contains("folder-content")) return;
         if (el.id && !el.hasAttribute("data-loaded")) chargerDossier(el.id, el.getAttribute("data-path"));
     });
 }
 window.onload = init;
 </script>
+
 </body>
 </html>
