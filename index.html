@@ -279,38 +279,31 @@
 </section>
 
 <script>
-// 1. Liste de vos dossiers (IDs HTML et chemins GitHub)
-const dossiers = [
-    { id: "bac-sciences", chemin: "4eme-Sc-exp" },
-    { id: "bac-math", chemin: "4eme-Math" },
-    { id: "bac-technique", chemin: "4eme-Technique" },
-    { id: "bac-economie", chemin: "4eme-Economie" },
-    { id: "2eme-sciences", chemin: "2eme-sciences" }
-];
-
-// 2. Gestion intelligente des clics
+// 1. Gestion universelle des clics (Sections, Sous-sections, Dossiers)
 document.addEventListener('click', function(e) {
-    const h2 = e.target.closest('.section h2');
-    if (h2) {
-        const section = h2.parentElement;
-        const content = section.querySelector('.content');
-        
-        // On ne charge que si la section n'a jamais été ouverte
-        if (!section.classList.contains('open') && content && !content.getAttribute('data-loaded')) {
-            // On trouve le chemin correspondant à l'ID de la section
-            const dossierInfo = dossiers.find(d => d.id === content.id);
-            if (dossierInfo) {
-                chargerDossier(dossierInfo.id, dossierInfo.chemin);
-            }
+    // Détecte le clic sur n'importe quel titre de menu
+    const target = e.target.closest('h2, h3, .folder-title');
+    if (!target) return;
+
+    const parent = target.parentElement;
+    const content = parent.querySelector('.content, .subcontent, .folder-content');
+    
+    if (content) {
+        // Si le contenu n'a jamais été chargé et possède un chemin GitHub
+        const chemin = content.getAttribute('data-path');
+        if (!content.getAttribute('data-loaded') && chemin) {
+            chargerDossier(content.id, chemin);
         }
-        section.classList.toggle('open');
+        parent.classList.toggle('open');
     }
 });
 
-// 3. Fonction de chargement à la demande
+// 2. Fonction de chargement à la demande
 async function chargerDossier(idContainer, chemin) {
     const container = document.getElementById(idContainer);
-    container.innerHTML = "<li>⌛ Chargement des documents...</li>";
+    if (!container) return;
+
+    container.innerHTML = "<li>⌛ Chargement...</li>";
 
     try {
         const response = await fetch(`https://github.com{chemin}`);
@@ -328,11 +321,10 @@ async function chargerDossier(idContainer, chemin) {
             }
         });
         
-        container.innerHTML = count > 0 ? html + "</ul>" : "<li>Aucun PDF trouvé.</li>";
-        container.setAttribute('data-loaded', 'true'); // Marquer comme chargé
-
+        container.innerHTML = count > 0 ? html + "</ul>" : "<li>Aucun document trouvé.</li>";
+        container.setAttribute('data-loaded', 'true');
     } catch (err) {
-        container.innerHTML = "<li style='color:red'>Limite GitHub atteinte. Réessayez plus tard.</li>";
+        container.innerHTML = "<li style='color:orange'>Limite GitHub atteinte. Réessayez plus tard.</li>";
     }
 }
 </script>
