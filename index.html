@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #d3d3d3; color: #333; line-height: 1.6; }
-        .container { width: 100%; margin: 0 auto; padding: 20px; }
+        .container { max-width: 100%; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-radius: 15px; padding: 40px; margin-bottom: 30px; display: flex; align-items: center; gap: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .profile-img { width: 100px; height: 100px; border-radius: 50%; background-color: white; overflow: hidden; border: 3px solid #ffd966; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -28,15 +28,17 @@
         .subsection.open .subcontent { display: block; }
         .folder-list, .file-list { background: #fafafa; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
         .folder-item { margin: 8px 0; }
-        .folder-title { cursor: pointer; font-weight: bold; color: #1e3c72; padding: 5px; background: #e8f0fe; border-radius: 5px; display: inline-block; margin-bottom: 5px; transition: all 0.2s ease; }
-        .folder-title:hover { background: #d4e0f0; transform: scale(1.02); }
+        .folder-title { cursor: pointer; font-weight: bold; color: #1e3c72; padding: 5px; background: #e8f0fe; border-radius: 5px; display: inline-block; margin-bottom: 5px; }
         .folder-title::before { content: "📁 "; }
         .folder-content { margin-left: 20px; display: none; }
         .folder-content.open { display: block; }
         .file-list ul { list-style: none; }
         .file-list li { padding: 5px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
         .file-list a { color: #2a5298; text-decoration: none; font-weight: 600; }
-        .legal-notice { background-color: #f9f3e0; border-left: 5px solid #1e3c72; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .legal { background: #e8f0fe; border-left: 5px solid #1e3c72; padding: 25px; border-radius: 8px; margin-top: 20px; }
+        .status-list { list-style: none; margin-top: 10px; }
+        .status-list li { font-weight: bold; padding-left: 25px; position: relative; }
+        .status-list li::before { content: "★"; position: absolute; left: 0; color: #f39c12; }
         .livres-list { list-style: none; margin: 15px 0; }
         .livres-list li { margin: 8px 0; padding-left: 20px; position: relative; transition: all 0.2s ease; }
         .livres-list li:nth-child(1) { color: #1e3c72; }
@@ -113,16 +115,16 @@
         </div>
     </section>
 
-    <!-- MP -->
+    <!-- SECTION MP -->
     <section class="section" id="mp">
         <h2>📘 MP (Deuxième année Mathématiques et Physique)</h2>
         <div class="content">
             <div class="subsection"><h3>📐 Maths 1</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Maths 1</div><div id="mp-m1-cours" class="folder-content" data-path="MP/Maths 1/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Maths 1</div><div id="mp-m1-devoirs" class="folder-content" data-path="MP/Maths 1/Devoirs"></div></div><div class="folder-item"><div class="folder-title">TD - Maths 1</div><div id="mp-m1-td" class="folder-content" data-path="MP/Maths 1/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Maths 1</div><div id="mp-m1-prob" class="folder-content" data-path="MP/Maths 1/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Maths 1</div><div id="mp-m1-archives" class="folder-content" data-path="MP/Maths 1/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Maths 1</div><div id="mp-m1-divers" class="folder-content" data-path="MP/Maths 1/Divers"></div></div></div></div>
-            <div class="subsection"><h3>📐 Maths 2</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Maths 2</div><div id="mp-m2-cours" class="folder-content" data-path="MP/Maths 2/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Maths 2</div><div id="mp-m2-devoirs" class="folder-content" data-path="MP/Maths 2/Devoirs"></div></div><div class="folder-item"><div class="folder-title">TD - Maths 2</div><div id="mp-m2-td" class="folder-content" data-path="MP/Maths 2/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Maths 2</div><div id="mp-m2-prob" class="folder-content" data-path="MP/Maths 2/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Maths 2</div><div id="mp-m2-archives" class="folder-content" data-path="MP/Maths 2/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Maths 2</div><div id="mp-m2-divers" class="folder-content" data-path="MP/Maths 2/Divers"></div></div></div></div>
+            <div class="subsection"><h3>📐 Maths 2</h3><div class="subcontent"><div class="folder-item"><div class="folder-title">Cours - Maths 2</div><div id="mp-m2-cours" class="folder-content" data-path="MP/Maths 2/Cours"></div></div><div class="folder-item"><div class="folder-title">Devoirs - Maths 2</div><div id="mp-m2-devoirs" class="folder-content" data-path="MP/Maths 2/Devoirs</div></div><div class="folder-item"><div class="folder-title">TD - Maths 2</div><div id="mp-m2-td" class="folder-content" data-path="MP/Maths 2/TD"></div></div><div class="folder-item"><div class="folder-title">Problèmes - Maths 2</div><div id="mp-m2-prob" class="folder-content" data-path="MP/Maths 2/Problèmes"></div></div><div class="folder-item"><div class="folder-title">Archives - Maths 2</div><div id="mp-m2-archives" class="folder-content" data-path="MP/Maths 2/Archives"></div></div><div class="folder-item"><div class="folder-title">Divers - Maths 2</div><div id="mp-m2-divers" class="folder-content" data-path="MP/Maths 2/Divers"></div></div></div></div>
         </div>
     </section>
 
-    <!-- MPSI -->
+    <!-- SECTION MPSI -->
     <section class="section" id="mpsi">
         <h2>📗 MPSI (Première année Mathématiques et Physique)</h2>
         <div class="content">
@@ -131,7 +133,7 @@
         </div>
     </section>
 
-    <!-- PC/PT -->
+    <!-- SECTION PC/PT -->
     <section class="section" id="pcpt">
         <h2>📕 PC / PT (Deuxièmes années Physique-chimie et Préparatoire Technologie)</h2>
         <div class="content">
@@ -144,7 +146,7 @@
         </div>
     </section>
 
-    <!-- PCSI/PTSI -->
+    <!-- SECTION PCSI/PTSI -->
     <section class="section" id="pcsi">
         <h2>🧪 PCSI / PTSI (Premières années Physique-chimie et Préparatoire Technologie)</h2>
         <div class="content">
@@ -157,7 +159,7 @@
         </div>
     </section>
 
-    <!-- CONCOURS -->
+    <!-- SECTION CONCOURS NATIONAUX -->
     <section class="section" id="concours">
         <h2>📂 Concours Nationaux tunisiens</h2>
         <div class="content">
@@ -167,19 +169,19 @@
         </div>
     </section>
 
-    <!-- LIENS -->
+    <!-- SECTION LIENS ET CONTACT -->
     <section class="section" id="liens">
         <h2>🔗 Liens et Contact</h2>
         <div class="content">
             <div class="legal-notice"><h3>📢 À propos de ces documents</h3><p>Les documents proposés ici le sont à titre gratuit. Il est autorisé :</p><ul><li>📖 de les étudier,</li><li>🖨️ de les imprimer,</li><li>📤 de les diffuser à titre gratuit.</li></ul></div>
             <p>📧 Email : <a href="mailto:lotfi.haddad@ipeiem.utm.tn" class="email-link">lotfi.haddad@ipeiem.utm.tn</a></p>
             <h3>📚 Sites et ressources utiles</h3>
-            <ul><li>🔗 <a href="https://ipeiem.rnu.tn/" target="_blank">IPEI El Manar</a></li><li>🔗 <a href="https://prepas.org/index.php?module=Sujets" target="_blank">Prepas.org</a></li><li>🔗 <a href="https://www.mp2-chato.fr/" target="_blank">MP² Chato</a></li><li>🔗 <a href="https://alkendy.ma/index.htm" target="_blank">Alkendy</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mpsi3-fermat/" target="_blank">MPSI Fermat</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mp-ism/" target="_blank">MP ISM</a></li><li>🔗 <a href="http://pcsi.lazos.free.fr/" target="_blank">PCSI Lazos</a></li><li>🔗 <a href="https://ghaberer.bitbucket.io/mathematiques/" target="_blank">GHaberer</a></li><li>🔗 <a href="https://lionelchaussade.wixsite.com/website" target="_blank">Lionel Chaussade</a></li></ul>
+            <ul><li>🔗 <a href="https://ipeiem.rnu.tn/" target="_blank">IPEI El Manar</a></li><li>🔗 <a href="https://prepas.org/index.php?module=Sujets" target="_blank">Prepas.org - Sujets de concours</a></li><li>🔗 <a href="https://www.mp2-chato.fr/" target="_blank">MP² Chato</a></li><li>🔗 <a href="https://alkendy.ma/index.htm" target="_blank">Alkendy - Mathématiques</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mpsi3-fermat/" target="_blank">Cahier de prépa - MPSI Fermat</a></li><li>🔗 <a href="https://cahier-de-prepa.fr/mp-ism/" target="_blank">Cahier de prépa - MP ISM</a></li><li>🔗 <a href="http://pcsi.lazos.free.fr/" target="_blank">PCSI - Lazos</a></li><li>🔗 <a href="https://ghaberer.bitbucket.io/mathematiques/" target="_blank">GHaberer - Mathématiques</a></li><li>🔗 <a href="https://lionelchaussade.wixsite.com/website" target="_blank">Lionel Chaussade</a></li></ul>
             <p>💡 Pour toute question ou remarque, n'hésitez pas à me contacter.</p>
         </div>
     </section>
 
-    <!-- ACTUALITÉS -->
+    <!-- SECTION ACTUALITÉS -->
     <section class="section" id="actualites">
         <h2>📰 Actualités</h2>
         <div class="content">
@@ -187,7 +189,7 @@
         </div>
     </section>
 
-    <!-- NEWS FLASH -->
+    <!-- SECTION NEWS FLASH -->
     <section class="section" id="news">
         <div class="ambulance-alert"><span class="siren">🚨</span><h2>DERNIÈRES NEWS</h2><span class="siren">🚨</span></div>
         <div class="content">
